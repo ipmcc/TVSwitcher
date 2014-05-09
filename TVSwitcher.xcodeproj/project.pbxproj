@@ -1,0 +1,346 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		D99EA226191C285D005C63B9 /* NSDate+TimeAgo.m in Sources */ = {isa = PBXBuildFile; fileRef = D99EA225191C285D005C63B9 /* NSDate+TimeAgo.m */; };
+		D99EA229191D9344005C63B9 /* NSString+VisEncode.m in Sources */ = {isa = PBXBuildFile; fileRef = D99EA228191D9344005C63B9 /* NSString+VisEncode.m */; };
+		D99EA22C191D93AD005C63B9 /* IPMTVSwitcherCommandOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = D99EA22B191D93AD005C63B9 /* IPMTVSwitcherCommandOperation.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		D9A76922190C1FEB00FCF232 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D9A76921190C1FEB00FCF232 /* Cocoa.framework */; };
+		D9A7692C190C1FEB00FCF232 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = D9A7692A190C1FEB00FCF232 /* InfoPlist.strings */; };
+		D9A7692E190C1FEB00FCF232 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = D9A7692D190C1FEB00FCF232 /* main.m */; };
+		D9A76932190C1FEB00FCF232 /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = D9A76930190C1FEB00FCF232 /* Credits.rtf */; };
+		D9A76935190C1FEB00FCF232 /* IPMAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = D9A76934190C1FEB00FCF232 /* IPMAppDelegate.m */; };
+		D9A76938190C1FEB00FCF232 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = D9A76936190C1FEB00FCF232 /* MainMenu.xib */; };
+		D9A7693A190C1FEB00FCF232 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D9A76939190C1FEB00FCF232 /* Images.xcassets */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		D99EA224191C285D005C63B9 /* NSDate+TimeAgo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDate+TimeAgo.h"; sourceTree = "<group>"; };
+		D99EA225191C285D005C63B9 /* NSDate+TimeAgo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDate+TimeAgo.m"; sourceTree = "<group>"; };
+		D99EA227191D9344005C63B9 /* NSString+VisEncode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+VisEncode.h"; sourceTree = "<group>"; };
+		D99EA228191D9344005C63B9 /* NSString+VisEncode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+VisEncode.m"; sourceTree = "<group>"; };
+		D99EA22A191D93AD005C63B9 /* IPMTVSwitcherCommandOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IPMTVSwitcherCommandOperation.h; sourceTree = "<group>"; };
+		D99EA22B191D93AD005C63B9 /* IPMTVSwitcherCommandOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IPMTVSwitcherCommandOperation.m; sourceTree = "<group>"; };
+		D9A7691E190C1FEB00FCF232 /* TVSwitcher.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TVSwitcher.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		D9A76921190C1FEB00FCF232 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
+		D9A76924190C1FEB00FCF232 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
+		D9A76926190C1FEB00FCF232 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		D9A76929190C1FEB00FCF232 /* TVSwitcher-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "TVSwitcher-Info.plist"; sourceTree = "<group>"; };
+		D9A7692B190C1FEB00FCF232 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		D9A7692D190C1FEB00FCF232 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		D9A7692F190C1FEB00FCF232 /* TVSwitcher-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "TVSwitcher-Prefix.pch"; sourceTree = "<group>"; };
+		D9A76931190C1FEB00FCF232 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; name = en; path = en.lproj/Credits.rtf; sourceTree = "<group>"; };
+		D9A76933190C1FEB00FCF232 /* IPMAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IPMAppDelegate.h; sourceTree = "<group>"; };
+		D9A76934190C1FEB00FCF232 /* IPMAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = IPMAppDelegate.m; sourceTree = "<group>"; };
+		D9A76937190C1FEB00FCF232 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/MainMenu.xib; sourceTree = "<group>"; };
+		D9A76939190C1FEB00FCF232 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		D9A7691B190C1FEB00FCF232 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D9A76922190C1FEB00FCF232 /* Cocoa.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		D9A76915190C1FEB00FCF232 = {
+			isa = PBXGroup;
+			children = (
+				D9A76927190C1FEB00FCF232 /* TVSwitcher */,
+				D9A76920190C1FEB00FCF232 /* Frameworks */,
+				D9A7691F190C1FEB00FCF232 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		D9A7691F190C1FEB00FCF232 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				D9A7691E190C1FEB00FCF232 /* TVSwitcher.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		D9A76920190C1FEB00FCF232 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				D9A76921190C1FEB00FCF232 /* Cocoa.framework */,
+				D9A76923190C1FEB00FCF232 /* Other Frameworks */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		D9A76923190C1FEB00FCF232 /* Other Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				D9A76924190C1FEB00FCF232 /* AppKit.framework */,
+				D9A76926190C1FEB00FCF232 /* Foundation.framework */,
+			);
+			name = "Other Frameworks";
+			sourceTree = "<group>";
+		};
+		D9A76927190C1FEB00FCF232 /* TVSwitcher */ = {
+			isa = PBXGroup;
+			children = (
+				D9A76933190C1FEB00FCF232 /* IPMAppDelegate.h */,
+				D9A76934190C1FEB00FCF232 /* IPMAppDelegate.m */,
+				D99EA224191C285D005C63B9 /* NSDate+TimeAgo.h */,
+				D99EA225191C285D005C63B9 /* NSDate+TimeAgo.m */,
+				D99EA227191D9344005C63B9 /* NSString+VisEncode.h */,
+				D99EA228191D9344005C63B9 /* NSString+VisEncode.m */,
+				D99EA22A191D93AD005C63B9 /* IPMTVSwitcherCommandOperation.h */,
+				D99EA22B191D93AD005C63B9 /* IPMTVSwitcherCommandOperation.m */,
+				D9A76936190C1FEB00FCF232 /* MainMenu.xib */,
+				D9A76939190C1FEB00FCF232 /* Images.xcassets */,
+				D9A76928190C1FEB00FCF232 /* Supporting Files */,
+			);
+			path = TVSwitcher;
+			sourceTree = "<group>";
+		};
+		D9A76928190C1FEB00FCF232 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				D9A76929190C1FEB00FCF232 /* TVSwitcher-Info.plist */,
+				D9A7692A190C1FEB00FCF232 /* InfoPlist.strings */,
+				D9A7692D190C1FEB00FCF232 /* main.m */,
+				D9A7692F190C1FEB00FCF232 /* TVSwitcher-Prefix.pch */,
+				D9A76930190C1FEB00FCF232 /* Credits.rtf */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		D9A7691D190C1FEB00FCF232 /* TVSwitcher */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = D9A7694F190C1FEB00FCF232 /* Build configuration list for PBXNativeTarget "TVSwitcher" */;
+			buildPhases = (
+				D9A7691A190C1FEB00FCF232 /* Sources */,
+				D9A7691B190C1FEB00FCF232 /* Frameworks */,
+				D9A7691C190C1FEB00FCF232 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = TVSwitcher;
+			productName = TVSwitcher;
+			productReference = D9A7691E190C1FEB00FCF232 /* TVSwitcher.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		D9A76916190C1FEB00FCF232 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				CLASSPREFIX = IPM;
+				LastUpgradeCheck = 0510;
+				ORGANIZATIONNAME = Apple;
+			};
+			buildConfigurationList = D9A76919190C1FEB00FCF232 /* Build configuration list for PBXProject "TVSwitcher" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = D9A76915190C1FEB00FCF232;
+			productRefGroup = D9A7691F190C1FEB00FCF232 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				D9A7691D190C1FEB00FCF232 /* TVSwitcher */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		D9A7691C190C1FEB00FCF232 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D9A7692C190C1FEB00FCF232 /* InfoPlist.strings in Resources */,
+				D9A7693A190C1FEB00FCF232 /* Images.xcassets in Resources */,
+				D9A76932190C1FEB00FCF232 /* Credits.rtf in Resources */,
+				D9A76938190C1FEB00FCF232 /* MainMenu.xib in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		D9A7691A190C1FEB00FCF232 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D9A7692E190C1FEB00FCF232 /* main.m in Sources */,
+				D99EA22C191D93AD005C63B9 /* IPMTVSwitcherCommandOperation.m in Sources */,
+				D9A76935190C1FEB00FCF232 /* IPMAppDelegate.m in Sources */,
+				D99EA229191D9344005C63B9 /* NSString+VisEncode.m in Sources */,
+				D99EA226191C285D005C63B9 /* NSDate+TimeAgo.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		D9A7692A190C1FEB00FCF232 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				D9A7692B190C1FEB00FCF232 /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		D9A76930190C1FEB00FCF232 /* Credits.rtf */ = {
+			isa = PBXVariantGroup;
+			children = (
+				D9A76931190C1FEB00FCF232 /* en */,
+			);
+			name = Credits.rtf;
+			sourceTree = "<group>";
+		};
+		D9A76936190C1FEB00FCF232 /* MainMenu.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				D9A76937190C1FEB00FCF232 /* Base */,
+			);
+			name = MainMenu.xib;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		D9A7694D190C1FEB00FCF232 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.9;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+		D9A7694E190C1FEB00FCF232 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.9;
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
+		D9A76950190C1FEB00FCF232 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				COMBINE_HIDPI_IMAGES = YES;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "TVSwitcher/TVSwitcher-Prefix.pch";
+				INFOPLIST_FILE = "TVSwitcher/TVSwitcher-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Debug;
+		};
+		D9A76951190C1FEB00FCF232 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				COMBINE_HIDPI_IMAGES = YES;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "TVSwitcher/TVSwitcher-Prefix.pch";
+				INFOPLIST_FILE = "TVSwitcher/TVSwitcher-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		D9A76919190C1FEB00FCF232 /* Build configuration list for PBXProject "TVSwitcher" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D9A7694D190C1FEB00FCF232 /* Debug */,
+				D9A7694E190C1FEB00FCF232 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		D9A7694F190C1FEB00FCF232 /* Build configuration list for PBXNativeTarget "TVSwitcher" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D9A76950190C1FEB00FCF232 /* Debug */,
+				D9A76951190C1FEB00FCF232 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = D9A76916190C1FEB00FCF232 /* Project object */;
+}
