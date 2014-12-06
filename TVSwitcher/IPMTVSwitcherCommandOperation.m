@@ -6,6 +6,14 @@
 //
 
 #import "IPMTVSwitcherCommandOperation.h"
+#import <libextobjc/EXTScope.h>
+
+NSString* const IPMTVSwitcherRemoteHost = @"RemoteHost";
+NSString* const IPMTVSwitcherRemotePort = @"RemotePort";
+NSString* const IPMTVSwitcherRemoteDevice = @"RemoteSerialDevice";
+NSString* const IPMTVSwitcherRemoteBaud = @"RemoteSerialSpeed";
+
+BOOL gLog = YES;
 
 @interface IPMTVSwitcherCommandOperation ()
 
@@ -27,6 +35,17 @@
 @synthesize isExecuting = mIsExecuting;
 @synthesize isFinished = mIsFinished;
 
++ (void)initialize
+{
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        [[NSUserDefaults standardUserDefaults] registerDefaults: @{ IPMTVSwitcherRemoteHost : @"192.168.1.253",
+                                                                    IPMTVSwitcherRemotePort : @"22",
+                                                                    IPMTVSwitcherRemoteDevice : @"/dev/cu.usbserial",
+                                                                    IPMTVSwitcherRemoteBaud : @"19200" }];
+    });
+}
+
 - (instancetype)initWithCommand: (NSString*)cmd timeout: (NSTimeInterval)duration callback: (IPMTVSwitcherCommandOperationCallback)callback
 {
     if (self = [super init])
@@ -34,36 +53,40 @@
         mCmd = [cmd copy];
         mTimeout = duration;
         mCallback = [callback copy];
-        //NSLog(@"init: %@", self);
+        if (gLog)
+            NSLog(@"init: %@", self);
     }
     return self;
 }
 
 - (void)dealloc
 {
-    //NSLog(@"dealloc: %@", self);
-    
-    [mCmd release];
+    if (gLog)
+        NSLog(@"dealloc: %@", self);
+
     [mTask terminate];
-    [mTask release];
-    [mAcc release];
-    [mCallback release];
-    [mCancel release];
-    
-    [super dealloc];
 }
 
 - (void)start
 {
-    //NSLog(@"start: %@", self);
+    if (gLog)
+        NSLog(@"start: %@", self);
     
     [self willChangeValueForKey:@"isExecuting"];
     mIsExecuting = YES;
     [self didChangeValueForKey:@"isExecuting"];
     
-    mTask = [[NSTask alloc] init];
+    mTask = [NSTask new];
     mTask.launchPath = @"/usr/bin/ssh";
-    mTask.arguments = @[ @"192.168.1.253", @"sudo cu -l /dev/cu.usbserial -s 19200" ];
+
+    NSString* host = [[NSUserDefaults standardUserDefaults] stringForKey: IPMTVSwitcherRemoteHost];
+    NSString* port = [[NSUserDefaults standardUserDefaults] stringForKey: IPMTVSwitcherRemotePort];
+    NSString* dev = [[NSUserDefaults standardUserDefaults] stringForKey: IPMTVSwitcherRemoteDevice];
+    NSString* baud = [[NSUserDefaults standardUserDefaults] stringForKey: IPMTVSwitcherRemoteBaud];
+    NSString* remoteCommand = [NSString stringWithFormat: @"sudo cu -l \"%@\" -s %@", dev, baud];
+    NSArray* args = @[ host, @"-p", port, remoteCommand];
+
+    mTask.arguments = args;
     NSPipe* inputPipe = [NSPipe pipe];
     NSPipe* outputPipe = [NSPipe pipe];
     NSPipe* errorPipe = [NSPipe pipe];
@@ -75,16 +98,19 @@
     [mTask launch];
     
     [[inputPipe fileHandleForWriting] writeData: [mCmd dataUsingEncoding: NSUTF8StringEncoding]];
-    NSLog(@"Sent command: %@", mCmd);
+    if (gLog)
+        NSLog(@"Sent command: %@", mCmd);
     
-    NSMutableData* acc = [[[NSMutableData alloc] init] autorelease];
-    __block typeof(self) blockSelf = self;
-    
+    NSMutableData* acc = [NSMutableData new];
+
+    @weakify(self);
+
     NSFileHandle* fh = outputPipe.fileHandleForReading;
     
     fh.readabilityHandler = ^(NSFileHandle* fh){
+        @strongify(self);
         [acc appendData: fh.availableData];
-        NSString* remoteString = [[[NSString alloc] initWithData: acc encoding: NSUTF8StringEncoding] autorelease];
+        NSString* remoteString = [[NSString alloc] initWithData: acc encoding: NSUTF8StringEncoding];
         
         NSString* frontTrimmedString = remoteString;
         
@@ -101,73 +127,85 @@
         
         if (hadLineEnding && trimmedString.length > 0)
         {
-            [blockSelf processResponse: trimmedString];
-            blockSelf = nil;
+            [self processResponse: trimmedString];
         }
     };
     
     double delayInSeconds = mTimeout;
     dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
     dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
-        [blockSelf finish: nil];
-        blockSelf = nil;
+        @strongify(self);
+        [self finish: nil];
     });
-    
-    mCancel = [^(){
-        IPMTVSwitcherCommandOperation* bSelf = [blockSelf retain];
-        blockSelf = nil;
-        
-        if (!bSelf)
-            return;
-        IPMTVSwitcherCommandOperationCallback cb = nil;
-        @synchronized(bSelf)
+
+    mCancel = [^{
+        @strongify(self);
+
+        IPMTVSwitcherCommandOperationCallback cb = [self consumeCallback];
+        if (cb)
         {
-            cb = bSelf->mCallback;
-            bSelf->mCallback = nil;
+            cb(NO, nil, nil);
         }
-        
-        if (cb) cb(NO, nil, nil);
-        [cb autorelease];
-        [bSelf finish: nil];
+        [self finish: nil];
+
     } copy];
+}
+
+- (IPMTVSwitcherCommandOperationCallback)consumeCallback
+{
+    @synchronized(self)
+    {
+        IPMTVSwitcherCommandOperationCallback callback = mCallback;
+        mCallback = nil;
+        return callback;
+    }
+}
+
+- (dispatch_block_t)consumeCancelHandler
+{
+    @synchronized(self)
+    {
+        dispatch_block_t cancelHandler = mCancel;
+        mCancel = nil;
+        return cancelHandler;
+    }
 }
 
 - (void)cancel
 {
-    @synchronized(self)
+    dispatch_block_t cancelHandler = [self consumeCancelHandler];
+    if (cancelHandler)
     {
-        dispatch_block_t block = mCancel;
-        mCancel = nil;
-        [block autorelease];
-        block();
+        cancelHandler();
     }
 }
 
 - (void)processResponse: (NSString*)response
 {
-    NSLog(@"Got response: %@", response);
-    @synchronized(self)
+    if (gLog)
+        NSLog(@"Got response: %@", response);
+
+    IPMTVSwitcherCommandOperationCallback callback = [self consumeCallback];
+
+    if (callback)
     {
-        IPMTVSwitcherCommandOperationCallback cb = mCallback;
-        mCallback = nil;
-        cb(YES, response, nil);
-        [cb autorelease];
+        callback(YES, response, nil);
     }
-    
+
     [self finish: nil];
 }
 
-- (void)finish: (id)foo
+- (void)finish: (id)sender
 {
     if (self.isFinished)
         return;
     
     [mTask.standardOutput fileHandleForReading].readabilityHandler = nil;
     [mTask terminate];
-    [mTask release];
     mTask = nil;
     
-    //NSLog(@"finish: %@", self);
+    if (gLog)
+        NSLog(@"finish: %@", self);
     
     [self willChangeValueForKey:@"isExecuting"];
     [self willChangeValueForKey:@"isFinished"];
@@ -177,6 +215,25 @@
     
     [self didChangeValueForKey:@"isExecuting"];
     [self didChangeValueForKey:@"isFinished"];
+
+    [self consumeCallback];
+    [self consumeCancelHandler];
+}
+
+- (NSString*)description
+{
+    NSMutableString* str = [[super description] mutableCopy];
+    [str setString: @""];
+    [str appendFormat: @"<%@ %p", NSStringFromClass([self class]), self];
+    if (self.name)
+    {
+        [str appendFormat: @" name: '%@'", self.name];
+    }
+    [str appendFormat: @" isExecuting: %@", self.isExecuting ? @"YES" : @"NO"];
+    [str appendFormat: @" isFinished: %@", self.isFinished ? @"YES" : @"NO"];
+
+    [str appendString: @">"];
+    return str;
 }
 
 @end

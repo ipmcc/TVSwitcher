@@ -82,10 +82,6 @@ NSString* const kPollTime = @"PollTime";
     [self querySwitcher: nil];
 }
 
-- (void)dealloc
-{
-}
-
 - (void)selectInput: (id)sender
 {
     NSMenuItem* item = sender;
@@ -133,8 +129,7 @@ NSString* const kPollTime = @"PollTime";
     
     NSMutableData* encodedStr = [NSMutableData dataWithLength: string.length * 10];
     strvis(encodedStr.mutableBytes, string.UTF8String, VIS_CSTYLE | VIS_NL);
-    //NSLog(@"receiving: '%s'", encodedStr.bytes);
-    
+
     string = [string stringByReplacingOccurrencesOfString: @"\n" withString: @""];
     string = [string stringByReplacingOccurrencesOfString: @"\r" withString: @""];
     
@@ -167,14 +162,14 @@ NSString* const kPollTime = @"PollTime";
 - (void)querySwitcher: (id)sender
 {
     IPMTVSwitcherCommandOperation* op = [[IPMTVSwitcherCommandOperation alloc] initWithCommand: @"S\r\n" timeout:5.0 callback:^(BOOL success, NSString *response, NSError *error) {
-        if (success) [self p_processResponse: response];
+        if (success)
+            [self p_processResponse: response];
     }];
     
     [mOpQueue addOperation: op];
 }
 
 @end
-
 
 @implementation NSMenuItem (CmdToSend)
 
