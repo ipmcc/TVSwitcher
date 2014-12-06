@@ -13,7 +13,7 @@ NSString* const IPMTVSwitcherRemotePort = @"RemotePort";
 NSString* const IPMTVSwitcherRemoteDevice = @"RemoteSerialDevice";
 NSString* const IPMTVSwitcherRemoteBaud = @"RemoteSerialSpeed";
 
-BOOL gLog = YES;
+BOOL gLog = NO;
 
 @interface IPMTVSwitcherCommandOperation ()
 

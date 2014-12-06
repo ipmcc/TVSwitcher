@@ -11,6 +11,7 @@
 #import "NSDate+TimeAgo.h"
 #import <objc/runtime.h>
 #import <vis.h>
+#import <libextobjc/EXTScope.h>
 
 NSString* const kInputListKey = @"Inputs";
 NSString* const kOutputListKey = @"Outputs";
@@ -30,7 +31,11 @@ NSString* const kPollTime = @"PollTime";
 {
     NSOperationQueue* mOpQueue;
     NSMenuItem* mAgoMenuItem;
+    NSMenuItem* mQuitSeparator;
+    NSMenuItem* mQuitItem;
     NSDate* mLastUpdate;
+    BOOL mOptionDown;
+    CFRunLoopObserverRef mRunLoopObserver;
 }
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification
@@ -74,12 +79,27 @@ NSString* const kPollTime = @"PollTime";
         outputItem.tag = menu.itemArray.count;
         [menu addItem: outputItem];
     }
-    
+
+    mQuitSeparator = [NSMenuItem separatorItem];
+    [menu addItem: mQuitSeparator];
+
+    mQuitItem = [[NSMenuItem alloc] initWithTitle: @"Quit" action:@selector(terminate:) keyEquivalent: @"q"];
+    [menu addItem: mQuitItem];
+
     si.menu = menu;
     menu.delegate = self;
-    
+
+    [self updateMenuForOption: NO];
+
     // Get our first readout...
     [self querySwitcher: nil];
+}
+
+- (void)updateMenuForOption: (BOOL)optionDown
+{
+    mOptionDown = optionDown;
+    mQuitSeparator.hidden = !optionDown;
+    mQuitItem.hidden = !optionDown;
 }
 
 - (void)selectInput: (id)sender
@@ -90,7 +110,8 @@ NSString* const kPollTime = @"PollTime";
         IPMTVSwitcherCommandOperation* op = [[IPMTVSwitcherCommandOperation alloc] initWithCommand: item.cmdToSend timeout: 2.0 callback:^(BOOL success, NSString *response, NSError *error) {
             if (success)
                 [self p_processResponse: response];
-            
+
+            // Re-query after selection command
             [self querySwitcher: nil];
         }];
         
@@ -113,6 +134,41 @@ NSString* const kPollTime = @"PollTime";
 {
     mAgoMenuItem.title = [@"Status: Last update was " stringByAppendingString: [mLastUpdate timeAgo] ?: @"a while back."];
     [self querySwitcher: nil];
+}
+
+- (void)updateMenu
+{
+    CGEventRef event = CGEventCreate (NULL);
+    CGEventFlags flags = CGEventGetFlags (event);
+    BOOL optionKeyIsPressed = (flags & kCGEventFlagMaskAlternate) == kCGEventFlagMaskAlternate;
+    CFRelease(event);
+    [self updateMenuForOption: optionKeyIsPressed];
+}
+
+- (void)menuWillOpen:(NSMenu *)menu
+{
+    [self updateMenu];
+
+    if (mRunLoopObserver == NULL)
+    {
+        @weakify(self);
+        mRunLoopObserver = CFRunLoopObserverCreateWithHandler(NULL, kCFRunLoopBeforeWaiting, true, 0, ^(CFRunLoopObserverRef observer, CFRunLoopActivity activity) {
+            @strongify(self);
+            [self updateMenu];
+        });
+
+        CFRunLoopAddObserver(CFRunLoopGetCurrent(), mRunLoopObserver, kCFRunLoopCommonModes);
+    }
+}
+
+- (void)menuDidClose:(NSMenu *)menu
+{
+    if (mRunLoopObserver != NULL)
+    {
+        CFRunLoopObserverInvalidate(mRunLoopObserver);
+        CFRelease(mRunLoopObserver);
+        mRunLoopObserver = NULL;
+    }
 }
 
 - (void)p_processResponse: (NSString*)string

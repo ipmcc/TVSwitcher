@@ -8,6 +8,5 @@
 @interface IPMAppDelegate : NSObject <NSApplicationDelegate>
 
 @property (strong) NSStatusItem* statusItem;
-@property (strong) NSTimer* timer;
 
 @end
